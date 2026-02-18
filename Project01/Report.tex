@@ -27,7 +27,7 @@
 
 \section{Introduction}
 %Start with an introduction that gives an overview of what you will discuss in the body of the report. A brief summary of important concepts used in your discussion could be helpful here.
-For this study, the focus is to analyze and compare mortgage options for prospective home buyers in Boulder, Colorado. Varying models and rates to project and study long term implications of each model are examinde. By framing each model through different equations, the optimal financial path is able to be deduced. 
+For this study, the focus is to analyze and compare mortgage options for prospective home buyers in Boulder, Colorado. Varying models and rates to project and study long term implications are examined. By framing each model through different equations, the optimal financial path is able to be deduced. 
 
 \section{Analysis of Fixed Rate Mortgages}
     \subsection{Continuous Compounding} 
@@ -41,6 +41,8 @@ For this study, the focus is to analyze and compare mortgage options for prospec
         \label{fig:1.1}
     \end{figure}
     
+    Interest is calculated when a loan compounds. This frequency can affect the cost of the loan over time. This graph shows the effect of continuous compounding on the value of a \$750,000 loan, with an interest rate of 3\% over a course of thirty years. 
+
     \begin{table}[H]
         \centering
         \begin{tabular}{cc}
@@ -55,16 +57,17 @@ For this study, the focus is to analyze and compare mortgage options for prospec
         \label{tab:placeholder}
     \end{table}
 
+    The total difference between a loan compounding once a year and compounding continuously is just under two thousand dollars for a thirty year mortgage. In the entire time paying for the loan this is a relatively small difference. 
 
     \subsection{Behavior of the Loan Value}
     % Next, gain a broad understanding of the behavior of the loan value by determining whether there any equilibrium solutions to Eq. (3). If so, what are they, and what is their stability? What do these equilibria represent in real-world terms?
-    Equilibrium Solutions for Equation 3.
+    Finding an equilibrium solution for equation three can aid in the understanding of the behavior principal of the loan.
 
     \begin{equation*}
         \frac{dA}{dt} = rA - 12p
     \end{equation*}
 
-    Equilibrium: Set $\frac{dA}{dt} = 0$ to find the equilibrium value $A_{eq}$:
+    To find the equilibrium of equation 3, set $\frac{dA}{dt} = 0$ to find the equilibrium value $A_{eq}$:
     \begin{align*}
         0 &= rA_{eq} - 12p \\
         rA_{eq} &= 12p \\
@@ -77,7 +80,7 @@ For this study, the focus is to analyze and compare mortgage options for prospec
     
     \subsection{Solution for Principal}
     % Determine the exact behavior of the loan in your friends’ situation by solving (3) with A(0) = A0 and r and p arbitrary. Be sure to show your work so that your friends are confident that you have the correct solution
-    Derivation found in appendix \ref{app:der1}
+    To find the exact behavior of the loan in this specific situation, the differential equation with an arbitrary r and p can be solved. The derivation found in appendix \ref{app:der1}.
     \begin{equation*}
         A(t) = \frac{12p}{r} + \left( A_0 - \frac{12p}{r} \right ) e^{rt}
     \end{equation*}
@@ -152,7 +155,8 @@ For this study, the focus is to analyze and compare mortgage options for prospec
 
     \subsection{Down Payment}
     % Buyers often choose to pay as much of the cost as they can up front (make a down payment) so that they don’t have to borrow quite so much. Might this option be worth it for your friends? How much money would they save in each case if they paid $100,000 down on the house, i.e., the original loan amount was $650,000? Use the interest rates and loan periods from part (4).
-
+    Making a down payment is a strategy often used to lower the total amount of money borrowed from the bank. By paying a portion of the house's cost upfront, the starting size of the loan is reduced, which can lead to significant savings over time. If the down payment was \$100,000 for a \$750,000 house, the initial loan amount would only be \$650,000. The lower starting balance means that the monthly charge would be greatly decreased starting at the beginning of the mortgage. The following analysis compare the 10 year and 30 year mortgages.
+    \bigbreak
         \textbf{Effect of a Down Payment}
         
         If $100{,}000$ is paid up front, the principal becomes $A_0 = 650{,}000$.
@@ -194,7 +198,7 @@ For this study, the focus is to analyze and compare mortgage options for prospec
         \begin{align*}
             \text{Interest Saved} &= 697{,}118.00 - 605{,}035.60 = \$92{,}082.40
         \end{align*}
-        
+        It is seen that in the 10 year mortgage with an 1
     \subsection{30 vs 10 Year Fixed Rate}
     % What are the advantages and disadvantages of taking out a 30-year fixed rate mortgage as opposed to a 10-year mortgage?
         An advantage of a 30 year fixed rate mortgage over a 10 year fixed rate mortgage is that the monthly payments will be much lower for a 30 year. However the total cost of the loan will be much greater in said 30 year mortgage. 
@@ -204,7 +208,7 @@ For this study, the focus is to analyze and compare mortgage options for prospec
         \subsubsection{}
         % 1. Implement Euler’s method for Eq. (3) with step size h = 0.5. Run the method until the mortgage is paid off and determine when it is paid off. Note: in reality, the mortgage is paid off when its value is zero. However, due to errors in the computations (both discretization and roundoff), it is likely that Euler’s method will not produce an exact value of 0 for the mortgage value for any time. To account for this, consider the mortgage to be paid off when its value first becomes negative.
 
-        When we use Euler's method with a step size of 0.5, we get an approximation that the loan will be paid off in 31 years. However, if we use Euler's method with a step size of 0.01, we achieve a much higher accuracy approximation showing that the loan will be paid off in 30.41 years. 
+        When Euler's method with a step size of 0.5 is used, an approximation is achieved that the loan will be paid off in 31 years. However, if Euler's method with a step size of 0.01 is used, a much higher accuracy approximation shows that the loan will be paid off in 30.41 years. 
         
         %Fixed rate (r=0.05, p=$4000): Euler h=0.50 payoff ~ 31.00 years
         %Fixed rate (r=0.05, p=$4000): Euler h=0.01 payoff ~ 30.41 years
@@ -233,17 +237,23 @@ For this study, the focus is to analyze and compare mortgage options for prospec
     \subsection{Adjustable Rate Mortgage (ARM)}
     %Now we turn to the adjustable rate mortgages. Suppose that for the same $750,000 mortgage a bank offers an adjustable rate mortgage, which starts with an initial lower fixed rate of 3% (r = 0.03) for the first 5 years and is tied to credit markets after that. Let’s assume that after the first 5 years the rate increases as r(t) = 0.03 + 0.015√(t − 5), so
     
+    Transitioning to adjustable-rate mortgages, the analysis considers a 750,000 dollars loan that begins with a lower fixed interest rate of 3 for the initial five years. After those first five years, the bank changes the rate based on what is happening in the credit markets. This change is calculated using 
+    \begin{align}
+        \text{r(t)} &= 0.03 \times 0.015  \sqrt{t-5}
+    \end{align}
+    where the interest rate goes up over time. By using Euler’s method with a small step value of h = 0.01, the following analysis shows how much extra interest is paid and how long it takes to own the home based on different monthly payments.
+    
     %Use Euler’s method with h = 0.01 to answer the following.
         \subsubsection{}
         % 1. Suppose your friends pay $4000 per month. How long will it take them to pay off the mortgage?
-            By paying \$4000 per month it will it will take 44.90 years to pay off the mortgage.  
+            By using Euler's method of a fixed rate mortgage using an h value of 0.01 and while paying \$4000 per month, it will it will take 44.90 years to pay off the mortgage.  
         \subsubsection{}
         % 2. What about if they pay $4500 per month?
-            By paying \$4500 per month it will it will take 22.56 years to pay off the mortgage.  
+            By using Euler's method of a fixed rate mortgage using an h value of 0.01 and while paying \$4500 per month it will it will take 22.56 years to pay off the mortgage.  
 
         \subsubsection{}
         % 3. How much interest is paid in each case?
-            With case one they will pay \$924 734.57 in interest. With case two they will pay \$468 098.10 in interest. By paying just \$500 more each month they will save \$456 636.47! 
+            With case one, they will pay \$924,734.57 in interest. With case two, they will pay \$468,098.10 in interest. By paying just \$500 more each month, they will save \$456,636.47! 
 
             
         \subsubsection{}
@@ -260,18 +270,17 @@ For this study, the focus is to analyze and compare mortgage options for prospec
         \end{figure}
 
         The variable interest rate starts affecting the graph immediately, the total principal left on the mortgage with the ARM is immediately lower then the fixed rate. 
-        At the \$4500 per month this trend continues for the entirety of the loan, where it is payed off sooner then the fixed rate at this payment value. 
-        At the \$4000 per month this trend only continues until 20.5 years into the life of the mortgage. At this point in time the principal of the ARM becomes greater then the fixed rate mortgage. 
+        At the \$4,500 per month this trend continues for the entirety of the loan, where it is payed off sooner then the fixed rate at this payment value. 
+        At the \$4,000 per month this trend only continues until 20.5 years into the life of the mortgage. At this point in time the principal of the ARM becomes greater then the fixed rate mortgage. 
 
         % principal- value of the loan 
 
 \section{Conclusion}
 %End the report with a conclusion that summarizes what you accomplished. No new information or new results should appear in your conclusion. You should only review the highlights of what your wrote about in the body of the report.
-When we are analyzing our fixed rate mortgage data, the primary advantage is the predictability 
-of both the loan's cost and monthly obligation being consistent over the duration of the loan. By analyzing our data, we find a big trade off between monthly affordability and total cost. While the 30 year payment plan offers a low immediate payment, the total cost of the loan due to interest is substantially higher than what it would be using an adjustable rate mortgage model. 
+When the fixed rate mortgage data is analyzed, the primary advantage is the predictability of both the loan's cost and monthly obligation being consistent over the duration of the loan. When analyzing the data, there is a big trade off between monthly affordability and total cost. While the 30 year payment plan offers a low immediate payment, the total cost of the loan due to interest is substantially higher than what it would be using an adjustable rate mortgage model. 
 \\ 
 
-While calculating our values, we found that the accuracy of Euler's method depended on the chosen step size, h. When approximating the total loan duration for the mortgage, a greater h value such as h=0.5 will lead to a decrease in accuracy. However, by reducing the h step value to a value of h = 0.01, the numerical estimation of the loan duration will align much closer to the true values. 
+While calculating our values, it is found that the accuracy of Euler's method depended on the chosen step size, h. When approximating the total loan duration for the mortgage, a greater h value such as h=0.5 will lead to a decrease in accuracy. However, by reducing the h step value to a value of h = 0.01, the numerical estimation of the loan duration will align much closer to the true values. 
 \\
 
 When analyzing our adjustable rate mortgage data, the main takeaway is the impact of monthly payments on the duration of the loan. Our numerical values using Euler's method demonstrated that while paying 4000 dollars a month, the duration of the loan equates to almost 35 years. However, increasing the monthly payment to 4500 dollars, the duration of the loan drops to around 25 years. Paying an extra 500 dollars per month can save you a massive 456,636.47 dollars in total interest. 
