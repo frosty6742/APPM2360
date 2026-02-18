@@ -14,29 +14,19 @@ function exportGraph(name, figHandle)
 end
 
 function A = equation01(t, r, n, A0)
-    % Discrete compounding
     A = A0 * (1 + r/n).^(n*t);
 end
 
 function A = equation02(t, r, A0)
-    % Continuous compounding
     A = A0 * exp(r*t);
 end
 
 function dAdt = equation03(r, A, p, A0)
-    % Differential equation 
     dAdt = r*A - 12*p;
 end
 
-%{
-#1 
-Examine the effect of continuous compounding on the value of a loan. Assuming that the interest rate is 3% (r = 0.03) and
-the original loan is $750,000, compute the total cost of the loan after 5 years for loans compounded 1, 2, 4, and 12 times per
-year, without any payments, using Equation (1). Use Equation (2) to compare these values to the value of the loan compounded
-continuously. On the same graph, plot the value of the loan as a function of time compounded 4 times a year and 12 times a year
-as well as the value of the loan when the interest is compounded continuously for 0 ≤ t ≤ 30 years.
-%}
 
+%#2.1
 ns = [1 2 4 12]; % number of compounds per year
 comp_n = zeros(size(ns));
 
@@ -57,109 +47,20 @@ fprintf('  Continuous: $%.2f\n\n', continuous_value);
 t = 0:0.1:30;
 
 f = figure;
-
 plot(t, equation01(t, 0.03, 4, 750000), 'Color', '#CFB87C', 'LineWidth', 2);
 hold on;
 plot(t, equation01(t, 0.03, 12, 750000), 'Color', '#A2A4A3', 'LineWidth', 2);
 plot(t, equation02(t, 0.03, 750000), 'Color', '#0A3758', 'LineWidth', 2);
-
 xlabel('Time (years)');
 ylabel('Loan Value ($)');
 title('Loan Value: Compounded 4x/year, 12x/year, and Continuously');
-
 legend('n = 4', 'n = 12', 'Continuous', 'Location', 'northwest');
-
 grid on;
 hold off;
-
 exportGraph('3.1.1', f);
 
 
-%{
-Total cost after 5 years:
-  n=1: $869455.56
-  n=2: $870405.62
-  n=4: $870888.11
-  n=12: $871212.59
-  Continuous: $871375.68
-
-%}
-
-%{
-#2
-Next, gain a broad understanding of the behavior of the loan value by determining whether there any equilibrium solutions to Eq.
-(3). If so, what are they, and what is their stability? What do these equilibria represent in real-world terms?
-%}
-
-
-%{
-#3
-Determine the exact behavior of the loan in your friends’ situation by solving (3) with A(0) = A0 and r and p arbitrary. Be sure
-to show your work so that your friends are confident that you have the correct solution.
-%}
-
-
-%{
-#4
-The size of the monthly payment p that your friends are willing to make plays a large role in deciding the type of loan they should
-choose. Use the solution to (3) to find the correct p to pay off a 10-year fixed rate mortgage with rate of 3% and initial debt of
-$750,000. Do the same for a 30-year fixed rate mortgage with an interest rate of 5%. Hint: you want to find p such that A(tl) = 0,
-were tl is the duration (years) of your mortgage. Find this analytically, not numerically using a root finding routine.
-%}
-A0 = 750000;
-
-% 10-year at 3%
-r1 = 0.03;
-t1 = 10;
-p1 = (A0*r1) / (12*(1 - exp(-r1*t1)));
-
-% 30-year at 5%
-r2 = 0.05;
-t2 = 30;
-p2 = (A0*r2) / (12*(1 - exp(-r2*t2)));
-
-fprintf('10-year @ 3%% monthly payment p = $%.2f\n', p1);
-fprintf('30-year @ 5%% monthly payment p = $%.2f\n', p2);
-
-% Optional: verify analytically that A(t_l)=0 using the closed form
-A_t1 = (12*p1)/r1 + (A0 - (12*p1)/r1)*exp(r1*t1);
-A_t2 = (12*p2)/r2 + (A0 - (12*p2)/r2)*exp(r2*t2);
-
-fprintf('Check A(t1)= %.6f (should be ~0)\n', A_t1);
-fprintf('Check A(t2)= %.6f (should be ~0)\n', A_t2);
-
-%{
-#5
-While having a low monthly payment is nice, you should warn your friends that there is quite literally a price to pay for this
-convenience. We can determine the total amount paid by summing each monthly payment over the duration of the loan. How
-much interest is paid in the 30-year fixed rate mortgage? The 10-year?
-%}
-
-%{
-#6
-Buyers often choose to pay as much of the cost as they can up front (make a down payment) so that they don’t have to borrow quite
-so much. Might this option be worth it for your friends? How much money would they save in each case if they paid $100,000
-down on the house, i.e., the original loan amount was $650,000? Use the interest rates and loan periods from part (4).
-%}
-
-%{
-#7
-What are the advantages and disadvantages of taking out a 30-year fixed rate mortgage as opposed to a 10-year mortgage?
-%}
-
-
-
-
-%Consider a mortgage for $750,000 with a constant interest rate of 5% (r = 0.05) and a monthly payment p = $4000.
-
-    % 1. Implement Euler’s method for Eq. (3) with step size h = 0.5. Run the method until the mortgage is paid off and determine when it is paid off. Note: in reality, the mortgage is paid off when its value is zero. However, due to errors in the computations (both discretization and roundoff), it is likely that Euler’s method will not produce an exact value of 0 for the mortgage value for any time. To account for this, consider the mortgage to be paid off when its value first becomes negative.
-    
-
-    % 2. Plot the numerical solution A(t) and the true solution to Eq. (3) with the parameters given here on the same graph and compare the two. 
-    
-
-    %3. Repeat the previous item for a step size h = 0.01 and comment on the difference
-
+%#3.1
 A0 = 750000;
 r  = 0.05;
 p  = 4000;
@@ -221,26 +122,7 @@ legend('Euler', 'True', 'Location', 'best');
 grid on; hold off;
 exportGraph('3.2.3', f);
 
-
-%Now we turn to the adjustable rate mortgages. Suppose that for the same $750,000 mortgage a bank offers an adjustable rate mortgage, which starts with an initial lower fixed rate of 3% (r = 0.03) for the first 5 years and is tied to credit markets after that. Let’s assume that after the first 5 years the rate increases as r(t) = 0.03 + 0.015√t − 5, so
-%Use Euler’s method with h = 0.01 to answer the following.
-
-    % 1. Suppose your friends pay $4000 per month. How long will it take them to pay off the mortgage?
-
-
-    % 2. What about if they pay $4500 per month?
-
-
-    % 3. How much interest is paid in each case?
-
-
-    % 4. Plot the numerical solution A(t) for both scenarios on the same graph. How does the variable interest rate affect the graph, compared to the fixed rate? How do the different payment sizes affect the graph?
-
-
-% 3.2.2 Adjustable rate mortgage (Euler h=0.01)
-% r(t)=0.03 for t<=5
-% r(t)=0.03 + 0.015*sqrt(t-5) for t>5
-
+%#3.2
 A0 = 750000;
 h  = 0.01;
 
