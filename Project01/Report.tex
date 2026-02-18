@@ -14,6 +14,7 @@
 \usepackage[colorlinks=true, allcolors=black]{hyperref}
 \numberwithin{figure}{section}
 \usepackage{float}
+\usepackage{matlab-prettifier}
 
 \title{APPM2360 Project 1: How Much Does that House Really Cost?}
 \author{Owen Campbell, Jonas Morelli, Lucas Schultz}
@@ -21,49 +22,189 @@
 \begin{document}
 \maketitle
 
+\tableofcontents{}
+\listoffigures{}
+
+\section{Introduction}
+%Start with an introduction that gives an overview of what you will discuss in the body of the report. A brief summary of important concepts used in your discussion could be helpful here.
+For this study, the focus is to analyze and compare mortgage options for prospective home buyers in Boulder, Colorado. We examine varying models and rates to project and study long term implications of each model. By framing each model through different equations, we are able to deduce the optimal financial path.  
+
 \section{Analysis of Fixed Rate Mortgages}
-    \subsection{} 
+    \subsection{Continuous Compounding} 
     % Examine the effect of continuous compounding on the value of a loan. Assuming that the interest rate is 3% (r = 0.03) and the original loan is $750,000, compute the total cost of the loan after 5 years for loans compounded 1, 2, 4, and 12 times per year, without any payments, using Equation (1). Use Equation (2) to compare these values to the value of the loan compounded continuously. On the same graph, plot the value of the loan as a function of time compounded 4 times a year and 12 times a year as well as the value of the loan when the interest is compounded continuously for 0 ≤ t ≤ 30 years
+
+    %Cost of loan over time
     \begin{figure}[H]
         \centering
         \includegraphics[width=0.75\linewidth]{Project01//plots/3.1.1.pdf}
-        \caption{Loan Value}
+        \caption{Loan Value (Cost of Loan Over Time)}
         \label{fig:1.1}
     \end{figure}
     
-    % Total cost after 5 years:
-    % n=1: $869455.56
-    % n=2: $870405.62
-    % n=4: $870888.11
-    % n=12: $871212.59
-    % Continuous: $871375.68
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{cc}
+            Compounding & Loan Cost\\
+             n=1 &  \$869455.56\\
+             n=2 & \$870405.62 \\
+             n=4 & \$870888.11 \\
+             n=12 & \$871212.59 \\
+             Continuous & \$871375.68 \\
+        \end{tabular}
+        \caption{Total Loan Cost After 5 Years}
+        \label{tab:placeholder}
+    \end{table}
 
-    \subsection{}
+
+    \subsection{Behavior of the Loan Value}
     % Next, gain a broad understanding of the behavior of the loan value by determining whether there any equilibrium solutions to Eq. (3). If so, what are they, and what is their stability? What do these equilibria represent in real-world terms?
+    Equilibrium Solutions for Equation 3.
 
-    \subsection{}
+    \begin{equation*}
+        \frac{dA}{dt} = rA - 12p
+    \end{equation*}
+
+    Equilibrium: Set $\frac{dA}{dt} = 0$ to find the equilibrium value $A_{eq}$:
+    \begin{align*}
+        0 &= rA_{eq} - 12p \\
+        rA_{eq} &= 12p \\
+        A_{eq} &= \frac{12p}{r}
+    \end{align*}
+    
+    If $A > A_{eq}$, then $rA > 12p$ so $\frac{dA}{dt} > 0$ (loan grows).
+    If $A < A_{eq}$, then $rA < 12p$ so $\frac{dA}{dt} < 0$ (loan shrinks).
+    Based on this, the equilibrium is unstable.
+    
+    \subsection{Solution for Principal}
     % Determine the exact behavior of the loan in your friends’ situation by solving (3) with A(0) = A0 and r and p arbitrary. Be sure to show your work so that your friends are confident that you have the correct solution
+    Derivation found in appendix \ref{app:der1}
+    \begin{equation*}
+        A(t) = \frac{12p}{r} + \left( A_0 - \frac{12p}{r} \right ) e^{rt}
+    \end{equation*}
 
-    \subsection{}
-    % The size of the monthly payment p that your friends are willing to make plays a large role in deciding the type of loan they should choose. Use the solution to (3) to find the correct p to pay off a 10-year fixed rate mortgage with rate of 3% and initial debt of $750,000. Do the same for a 30-year fixed rate mortgage with an interest rate of 5%. Hint: you want to find p such that A(tl) = 0, were tl is the duration (years) of your mortgage. Find this analytically, not numerically using a root finding routine
+    \subsection{Monthly Payments}
+        % The size of the monthly payment p that your friends are willing to make plays a large role in deciding the type of loan they should choose. Use the solution to (3) to find the correct p to pay off a 10-year fixed rate mortgage with rate of 3% and initial debt of $750,000. Do the same for a 30-year fixed rate mortgage with an interest rate of 5%. Hint: you want to find p such that A(tl) = 0, were tl is the duration (years) of your mortgage. Find this analytically, not numerically using a root finding routine
+    
+        To find the monthly payment $p$ that pays off the loan in $t_l$ years, set $A(t_l) = 0$ in the solution. 
+        % \begin{equation*}
+        %     A(t) = \frac{12p}{r} + \left( A_0 - \frac{12p}{r} \right ) e^{rt}
+        % \end{equation*}
+        
+        Set $A(t_l) = 0$ and solve for $p$:
+        \begin{align*}
+            0 &= \frac{12p}{r} + \left( A_0 - \frac{12p}{r} \right ) e^{r t_l} 
+        \end{align*}
+        \begin{align*}
+            p &= \frac{A_0 r e^{r t_l}}{12 (e^{r t_l} - 1)}
+        \end{align*}
+        
+        \textbf{Plugging in the numbers:}
+        
+        For the 10-year, 3\% mortgage:
+        \begin{align*}
+            p &= \frac{750{,}000 \times 0.03 \times e^{0.03 \times 10}}{12 (e^{0.03 \times 10} - 1)} = \$7{,}234.30
+        \end{align*}
+            
+        For the 30-year, 5\% mortgage: 
+        \begin{align*}
+            p &= \frac{750{,}000 \times 0.05 \times e^{0.05 \times 30}}{12 (e^{0.05 \times 30} - 1)} = \$4{,}022.55
+        \end{align*}
 
-    \subsection{}
+    
+    \subsection{Interest Paid}
     % While having a low monthly payment is nice, you should warn your friends that there is quite literally a price to pay for this convenience. We can determine the total amount paid by summing each monthly payment over the duration of the loan. How much interest is paid in the 30-year fixed rate mortgage? The 10-year?
+    The total cost of the loan is determined by calculating the sum of every monthly payment over the entire duration of the agreement. This approach allows for the calculation of the exact interest paid by subtracting the initial principal from the cumulative total. These metrics provide a clear comparison between a 10-year mortgage at a 3 percent interest rate and a 30-year mortgage at a 5 percent interest rate, highlighting the long-term financial implications of each structure.
+\bigbreak
 
-    \subsection{}
+
+        \textbf{Total Interest Paid}
+        
+        The total amount paid is:
+        \begin{equation*}
+            \text{Total Paid} = 12p \times t_l
+        \end{equation*}
+        
+        The total interest paid is:
+        \begin{equation*}
+            \text{Interest Paid} = \text{Total Paid} - A_0
+        \end{equation*}
+        
+        \textbf{Plugging in the numbers:}
+        
+        For the 10-year, 3\% mortgage:
+        \begin{align*}
+            p &= 7{,}234.30 \\
+            t_l &= 10 \\
+            A_0 &= 750{,}000 \\
+            \text{Total Paid} &= 12 \times 7{,}234.30 \times 10 = \$868{,}116.00 \\
+            \text{Interest Paid} &= 868{,}116.00 - 750{,}000 = \$118{,}116.00
+        \end{align*}
+        
+        For the 30-year, 5\% mortgage:
+        \begin{align*}
+            p &= 4{,}022.55 \\
+            t_l &= 30 \\
+            A_0 &= 750{,}000 \\
+            \text{Total Paid} &= 12 \times 4{,}022.55 \times 30 = \$1{,}447{,}118.00 \\
+            \text{Interest Paid} &= 1{,}447{,}118.00 - 750{,}000 = \$697{,}118.00
+        \end{align*}
+        It is seen that the longer the loan duration is, the greater the interest amount will be as after 30 years. In this case the total interest paid is 5.75 times that of what is paid after 10 years. 
+
+    \subsection{Down Payment}
     % Buyers often choose to pay as much of the cost as they can up front (make a down payment) so that they don’t have to borrow quite so much. Might this option be worth it for your friends? How much money would they save in each case if they paid $100,000 down on the house, i.e., the original loan amount was $650,000? Use the interest rates and loan periods from part (4).
 
-    \subsection{}
+        \textbf{Effect of a Down Payment}
+        
+        If $100{,}000$ is paid up front, the principal becomes $A_0 = 650{,}000$.
+        \bigbreak
+        \textbf{Calculate new monthly payments:}
+        
+        For the 10-year, 3\% mortgage:
+        \begin{align*}
+            p &= \frac{650{,}000 \times 0.03 \times e^{0.03 \times 10}}{12 (e^{0.03 \times 10} - 1)} = \$6{,}273.06
+        \end{align*}
+        
+        For the 30-year, 5\% mortgage:
+        \begin{align*}
+            p &= \frac{650{,}000 \times 0.05 \times e^{0.05 \times 30}}{12 (e^{0.05 \times 30} - 1)} = \$3{,}486.21
+        \end{align*}
+        
+        \textbf{Calculate new total and interest paid:}
+        
+        For the 10-year, 3\% mortgage:
+        \begin{align*}
+            \text{Total Paid} &= 12 \times 6{,}273.06 \times 10 = \$752{,}747.20 \\
+            \text{Interest Paid} &= 752{,}747.20 - 650{,}000 = \$102{,}747.20
+        \end{align*}
+        
+        For the 30-year, 5\% mortgage:
+        \begin{align*}
+            \text{Total Paid} &= 12 \times 3{,}486.21 \times 30 = \$1{,}255{,}035.60 \\
+            \text{Interest Paid} &= 1{,}255{,}035.60 - 650{,}000 = \$605{,}035.60
+        \end{align*}
+        
+        \textbf{Savings:}
+        
+        For the 10-year, 3\% mortgage:
+        \begin{align*}
+            \text{Interest Saved} &= 118{,}116.00 - 102{,}747.20 = \$15{,}368.80
+        \end{align*}
+        
+        For the 30-year, 5\% mortgage:
+        \begin{align*}
+            \text{Interest Saved} &= 697{,}118.00 - 605{,}035.60 = \$92{,}082.40
+        \end{align*}
+        
+    \subsection{30 vs 10 Year Fixed Rate}
     % What are the advantages and disadvantages of taking out a 30-year fixed rate mortgage as opposed to a 10-year mortgage?
-
-
+        An advantage of a 30 year fixed rate mortgage over a 10 year fixed rate mortgage is that the monthly payments will be much lower for a 30 year. However the total cost of the loan will be much greater in said 30 year mortgage. 
 \section{Numerical Solutions}
-    \subsection{}
+    \subsection{Fixed Rate Mortgage}
     %Consider a mortgage for $750,000 with a constant interest rate of 5% (r = 0.05) and a monthly payment p = $4000.
         \subsubsection{}
         % 1. Implement Euler’s method for Eq. (3) with step size h = 0.5. Run the method until the mortgage is paid off and determine when it is paid off. Note: in reality, the mortgage is paid off when its value is zero. However, due to errors in the computations (both discretization and roundoff), it is likely that Euler’s method will not produce an exact value of 0 for the mortgage value for any time. To account for this, consider the mortgage to be paid off when its value first becomes negative.
 
-        Euler with a step size of 0.5 is paid off in 31 years. Euler with a step size of 0.01 is paid off in 30.41 years. 
+        When we use Euler's method with a step size of 0.5, we get an approximation that the loan will be paid off in 31 years. However, if we use Euler's method with a step size of 0.01, we achieve a much higher accuracy approximation showing that the loan will be paid off in 30.41 years. 
         
         %Fixed rate (r=0.05, p=$4000): Euler h=0.50 payoff ~ 31.00 years
         %Fixed rate (r=0.05, p=$4000): Euler h=0.01 payoff ~ 30.41 years
@@ -76,7 +217,9 @@
             \caption{Euler vs True (h=0.5)}
             \label{fig:3.2.2}
         \end{figure}
-        
+
+        The approximation using Euler's method with a step size of h=0.5 is plotted next to the true solution. The true solution suggests that the mortgage is paid off with just six months less than the Euler solution. Euler is a good approximation for this case with this step size, however not perfect. This lack of perfection is due to the error achieved using Euler's method. 
+
         \subsubsection{}
         %3. Repeat the previous item for a step size h = 0.01 and comment on the difference
         \begin{figure}[H]
@@ -85,20 +228,24 @@
             \caption{Euler vs True (h=0.01)}
             \label{fig:3.2.3}
         \end{figure}
+        The approximation using Euler's method with a step size of h=0.01 is plotted next to the true solution. The Euler approximation is very accurate to the true solution. Euler is a great approximation for this case with this step size as a lower step size decreases the error gained through using Euler's method. 
 
-    \subsection{}
-    %Now we turn to the adjustable rate mortgages. Suppose that for the same $750,000 mortgage a bank offers an adjustable rate mortgage, which starts with an initial lower fixed rate of 3% (r = 0.03) for the first 5 years and is tied to credit markets after that. Let’s assume that after the first 5 years the rate increases as r(t) = 0.03 + 0.015√t − 5, so
+    \subsection{Adjustable Rate Mortgage (ARM)}
+    %Now we turn to the adjustable rate mortgages. Suppose that for the same $750,000 mortgage a bank offers an adjustable rate mortgage, which starts with an initial lower fixed rate of 3% (r = 0.03) for the first 5 years and is tied to credit markets after that. Let’s assume that after the first 5 years the rate increases as r(t) = 0.03 + 0.015√(t − 5), so
     
     %Use Euler’s method with h = 0.01 to answer the following.
         \subsubsection{}
         % 1. Suppose your friends pay $4000 per month. How long will it take them to pay off the mortgage?
-
+            By paying \$4000 per month it will it will take 44.90 years to pay off the mortgage.  
         \subsubsection{}
         % 2. What about if they pay $4500 per month?
+            By paying \$4500 per month it will it will take 22.56 years to pay off the mortgage.  
 
         \subsubsection{}
         % 3. How much interest is paid in each case?
+            With case one they will pay \$924 734.57 in interest. With case two they will pay \$468 098.10 in interest. By paying just \$500 more each month they will save \$456 636.47! 
 
+            
         \subsubsection{}
         % 4. Plot the numerical solution A(t) for both scenarios on the same graph. How does the variable interest rate affect the graph, compared to the fixed rate? How do the different payment sizes affect the graph?
 
@@ -108,18 +255,83 @@
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.75\linewidth]{Project01//plots/3.2.4.pdf}
-            \caption{ARM}
+            \caption{ARM (h=0.01)}
             \label{fig:3.2.4}
         \end{figure}
 
+        The variable interest rate starts affecting the graph immediately, the total principal left on the mortgage with the ARM is immediately lower then the fixed rate. 
+        At the \$4500 per month this trend continues for the entirety of the loan, where it is payed off sooner then the fixed rate at this payment value. 
+        At the \$4000 per month this trend only continues until 20.5 years into the life of the mortgage. At this point in time the principal of the ARM becomes greater then the fixed rate mortgage. 
 
-%example
-\subsection{How to write Mathematics}
+        % principal- value of the loan 
 
-\LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
-\[S_n = \frac{X_1 + X_2 + \cdots + X_n}{n}
-      = \frac{1}{n}\sum_{i}^{n} X_i\]
-denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
+\section{Conclusion}
+%End the report with a conclusion that summarizes what you accomplished. No new information or new results should appear in your conclusion. You should only review the highlights of what your wrote about in the body of the report.
+When we are analyzing our fixed rate mortgage data, the primary advantage is the predictability 
+of both the loan's cost and monthly obligation being consistent over the duration of the loan. By analyzing our data, we find a big trade off between monthly affordability and total cost. While the 30 year payment plan offers a low immediate payment, the total cost of the loan due to interest is substantially higher than what it would be using an adjustable rate mortgage model. 
+\\ 
 
+While calculating our values, we found that the accuracy of Euler's method depended on the chosen step size, h. When approximating the total loan duration for the mortgage, a greater h value such as h=0.5 will lead to a decrease in accuracy. However, by reducing the h step value to a value of h = 0.01, the numerical estimation of the loan duration will align much closer to the true values. 
+\\
+
+When analyzing our adjustable rate mortgage data, the main takeaway is the impact of monthly payments on the duration of the loan. Our numerical values using Euler's method demonstrated that while paying 4000 dollars a month, the duration of the loan equates to almost 35 years. However, increasing the monthly payment to 4500 dollars, the duration of the loan drops to around 25 years. Paying an extra 500 dollars per month can save you a massive 456,636.47 dollars in total interest. 
+
+
+
+\section{Appendix}
+\appendix
+%Add an appendix to the report that includes the code used in the project as well as any lengthy calculations/proofs/derivations that you wish to submit. The appendix should be considered supplemental to the main parts of the report. No answers to questions, results, or plots should be found in the appendix.
+\section{Solving Eq. (3) for $A_0$, $r$, and $p$}
+    \label{app:der1}
+    The differential equation is:
+    \begin{equation*}
+        \frac{dA}{dt} = rA - 12p
+    \end{equation*}
+    
+    \begin{equation*}
+        \frac{dA}{dt} - rA = -12p
+    \end{equation*}
+    
+    Integrating Factor
+    \begin{equation*}
+        \mu(t) = e^{-rt}
+    \end{equation*}
+    
+    \begin{equation*}
+        e^{-rt} \frac{dA}{dt} - r e^{-rt} A = -12p e^{-rt}
+    \end{equation*}
+    
+    \begin{equation*}
+        \frac{d}{dt} \left( A e^{-rt} \right ) = -12p e^{-rt}
+    \end{equation*}
+    
+    \begin{align*}
+        A e^{-rt} &= \int -12p e^{-rt} dt + C \\
+        &= \frac{-12p}{-r} e^{-rt} + C \\
+        &= \frac{12p}{r} e^{-rt} + C
+    \end{align*}
+    
+    \begin{align*}
+        A e^{-rt} &= \frac{12p}{r} e^{-rt} + C \\
+        A &= \frac{12p}{r} + C e^{rt}
+    \end{align*}
+    
+    Apply Initial Condition $A(0) = A_0$
+    \begin{align*}
+        A_0 &= \frac{12p}{r} + C \\
+        C &= A_0 - \frac{12p}{r}
+    \end{align*}
+    
+    Final Solution:
+    \begin{equation*}
+        A(t) = \frac{12p}{r} + \left( A_0 - \frac{12p}{r} \right ) e^{rt}
+    \end{equation*}
+
+\section{MATLAB Code}
+\begin{lstlisting}[style=Matlab-editor]
+
+\end{lstlisting}
+
+\lstinputlisting[style=Matlab-editor]{}
 
 \end{document}
