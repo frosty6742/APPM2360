@@ -18,6 +18,7 @@
 
 \title{APPM2360 Project 1: How Much Does that House Really Cost?}
 \author{Owen Campbell, Jonas Morelli, Lucas Schultz}
+\date{February 17, 2026}
 
 \begin{document}
 \maketitle
@@ -61,7 +62,7 @@ For this study, the focus is to analyze and compare mortgage options for prospec
 
     \subsection{Behavior of the Loan Value}
     % Next, gain a broad understanding of the behavior of the loan value by determining whether there any equilibrium solutions to Eq. (3). If so, what are they, and what is their stability? What do these equilibria represent in real-world terms?
-    Finding an equilibrium solution for equation three can aid in the understanding of the behavior principal of the loan.
+    Finding an equilibrium solution for equation three can aid in the understanding of the behavior of the principal of the loan.
 
     \begin{equation*}
         \frac{dA}{dt} = rA - 12p
@@ -112,7 +113,7 @@ For this study, the focus is to analyze and compare mortgage options for prospec
         \begin{align*}
             p &= \frac{750{,}000 \times 0.05 \times e^{0.05 \times 30}}{12 (e^{0.05 \times 30} - 1)} = \$4{,}022.55
         \end{align*}
-
+    It is shown that over 30 years with a 5\% mortgage, the monthly cost is drastically decreased compared to the 10 year with a 3\% mortgage. The monthly payment for the 30 year mortgage is almost half of that of the 10 year mortgage. 
     
     \subsection{Interest Paid}
     % While having a low monthly payment is nice, you should warn your friends that there is quite literally a price to pay for this convenience. We can determine the total amount paid by summing each monthly payment over the duration of the loan. How much interest is paid in the 30-year fixed rate mortgage? The 10-year?
@@ -198,13 +199,15 @@ For this study, the focus is to analyze and compare mortgage options for prospec
         \begin{align*}
             \text{Interest Saved} &= 697{,}118.00 - 605{,}035.60 = \$92{,}082.40
         \end{align*}
-        It is seen that in the 10 year mortgage with an 1
+        It is seen that in the 10 year mortgage with an \$100,000 down payment, \$14,368.80 is saved over the 10 year mortgage without the down payment. Additionally, with a 30 year mortgage with an \$100,000 down payment, a massive \$92,082.40 is saved. Through these two simply analysis, it can be seen how much is saved by simply using a down payment before obtaining a loan.
+
     \subsection{30 vs 10 Year Fixed Rate}
     % What are the advantages and disadvantages of taking out a 30-year fixed rate mortgage as opposed to a 10-year mortgage?
         An advantage of a 30 year fixed rate mortgage over a 10 year fixed rate mortgage is that the monthly payments will be much lower for a 30 year. However the total cost of the loan will be much greater in said 30 year mortgage. 
 \section{Numerical Solutions}
     \subsection{Fixed Rate Mortgage}
     %Consider a mortgage for $750,000 with a constant interest rate of 5% (r = 0.05) and a monthly payment p = $4000.
+    In the following analysis, a mortgage of \$750,000 with a constant interest rate of \%5 and a monthly payment of \$4,000 along is considered along with a second scenario with the same bounds however the monthly payment is \$4,500 is also considered. 
         \subsubsection{}
         % 1. Implement Euler’s method for Eq. (3) with step size h = 0.5. Run the method until the mortgage is paid off and determine when it is paid off. Note: in reality, the mortgage is paid off when its value is zero. However, due to errors in the computations (both discretization and roundoff), it is likely that Euler’s method will not produce an exact value of 0 for the mortgage value for any time. To account for this, consider the mortgage to be paid off when its value first becomes negative.
 
@@ -278,19 +281,17 @@ For this study, the focus is to analyze and compare mortgage options for prospec
 \section{Conclusion}
 %End the report with a conclusion that summarizes what you accomplished. No new information or new results should appear in your conclusion. You should only review the highlights of what your wrote about in the body of the report.
 When the fixed rate mortgage data is analyzed, the primary advantage is the predictability of both the loan's cost and monthly obligation being consistent over the duration of the loan. When analyzing the data, there is a big trade off between monthly affordability and total cost. While the 30 year payment plan offers a low immediate payment, the total cost of the loan due to interest is substantially higher than what it would be using an adjustable rate mortgage model. 
-\\ 
 
 While calculating our values, it is found that the accuracy of Euler's method depended on the chosen step size, h. When approximating the total loan duration for the mortgage, a greater h value such as h=0.5 will lead to a decrease in accuracy. However, by reducing the h step value to a value of h = 0.01, the numerical estimation of the loan duration will align much closer to the true values. 
-\\
 
-When analyzing our adjustable rate mortgage data, the main takeaway is the impact of monthly payments on the duration of the loan. Our numerical values using Euler's method demonstrated that while paying 4000 dollars a month, the duration of the loan equates to almost 35 years. However, increasing the monthly payment to 4500 dollars, the duration of the loan drops to around 25 years. Paying an extra 500 dollars per month can save you a massive 456,636.47 dollars in total interest. 
+When analyzing our adjustable rate mortgage data, the main takeaway is the impact of monthly payments on the duration of the loan. Our numerical values using Euler's method demonstrated that while paying \$4000 a month, the duration of the loan equates to almost 35 years. However, increasing the monthly payment to \$4500, the duration of the loan drops to around 25 years. Paying an extra \$500 per month can save you a massive \$456,636.47 in total interest. 
 
 
 
 \section{Appendix}
 \appendix
 %Add an appendix to the report that includes the code used in the project as well as any lengthy calculations/proofs/derivations that you wish to submit. The appendix should be considered supplemental to the main parts of the report. No answers to questions, results, or plots should be found in the appendix.
-\section{Solving Eq. (3) for $A_0$, $r$, and $p$}
+\subsection{Solving Eq. (3) for $A_0$, $r$, and $p$}
     \label{app:der1}
     The differential equation is:
     \begin{equation*}
@@ -335,7 +336,7 @@ When analyzing our adjustable rate mortgage data, the main takeaway is the impac
         A(t) = \frac{12p}{r} + \left( A_0 - \frac{12p}{r} \right ) e^{rt}
     \end{equation*}
 
-\section{MATLAB Code}
-\lstinputlisting[style=Matlab-editor]{graphs.m}
+\subsection{MATLAB Code}
+\lstinputlisting[style=Matlab-editor]{proj1.m}
 
 \end{document}
