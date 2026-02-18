@@ -1,10 +1,4 @@
 \documentclass{article}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\usepackage{subcaption}
-\usepackage[colorlinks=true, allcolors=black]{hyperref}
-\numberwithin{figure}{section}
-\usepackage{float}
 
 
 \usepackage[english]{babel}
@@ -16,9 +10,12 @@
 % Useful packages
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{subcaption}
+\usepackage[colorlinks=true, allcolors=black]{hyperref}
+\numberwithin{figure}{section}
+\usepackage{float}
 
-\title{Project 1: How Much Does that House Really Cost?}
+\title{APPM2360 Project 1: How Much Does that House Really Cost?}
 \author{Owen Campbell, Jonas Morelli, Lucas Schultz}
 
 \begin{document}
@@ -65,20 +62,23 @@
     %Consider a mortgage for $750,000 with a constant interest rate of 5% (r = 0.05) and a monthly payment p = $4000.
         \subsubsection{}
         % 1. Implement Euler’s method for Eq. (3) with step size h = 0.5. Run the method until the mortgage is paid off and determine when it is paid off. Note: in reality, the mortgage is paid off when its value is zero. However, due to errors in the computations (both discretization and roundoff), it is likely that Euler’s method will not produce an exact value of 0 for the mortgage value for any time. To account for this, consider the mortgage to be paid off when its value first becomes negative.
+
+        Euler with a step size of 0.5 is paid off in 31 years. Euler with a step size of 0.01 is paid off in 30.41 years. 
+        
+        %Fixed rate (r=0.05, p=$4000): Euler h=0.50 payoff ~ 31.00 years
+        %Fixed rate (r=0.05, p=$4000): Euler h=0.01 payoff ~ 30.41 years
         
         \subsubsection{}
         % 2. Plot the numerical solution A(t) and the true solution to Eq. (3) with the parameters given here on the same graph and compare the two. 
-        
-        \subsubsection{}
-        %3. Repeat the previous item for a step size h = 0.01 and comment on the difference
-
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.75\linewidth]{Project01//plots/3.2.2.pdf}
             \caption{Euler vs True (h=0.5)}
             \label{fig:3.2.2}
         \end{figure}
-
+        
+        \subsubsection{}
+        %3. Repeat the previous item for a step size h = 0.01 and comment on the difference
         \begin{figure}[H]
             \centering
             \includegraphics[width=0.75\linewidth]{Project01//plots/3.2.3.pdf}
@@ -102,13 +102,18 @@
         \subsubsection{}
         % 4. Plot the numerical solution A(t) for both scenarios on the same graph. How does the variable interest rate affect the graph, compared to the fixed rate? How do the different payment sizes affect the graph?
 
-  % ARM (Euler h=0.01):
-  % p=$4000 payoff ~ 34.90 years, interest paid ~ $924734.57
-  % p=$4500 payoff ~ 22.56 years, interest paid ~ $468098.10
+          % ARM (Euler h=0.01):
+          % p=$4000 payoff ~ 34.90 years, interest paid ~ $924734.57
+          % p=$4500 payoff ~ 22.56 years, interest paid ~ $468098.10
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=0.75\linewidth]{Project01//plots/3.2.4.pdf}
+            \caption{ARM}
+            \label{fig:3.2.4}
+        \end{figure}
 
 
-
-
+%example
 \subsection{How to write Mathematics}
 
 \LaTeX{} is great at typesetting mathematics. Let $X_1, X_2, \ldots, X_n$ be a sequence of independent and identically distributed random variables with $\text{E}[X_i] = \mu$ and $\text{Var}[X_i] = \sigma^2 < \infty$, and let
@@ -116,7 +121,5 @@
       = \frac{1}{n}\sum_{i}^{n} X_i\]
 denote their mean. Then as $n$ approaches infinity, the random variables $\sqrt{n}(S_n - \mu)$ converge in distribution to a normal $\mathcal{N}(0, \sigma^2)$.
 
-\bibliographystyle{alpha}
-\bibliography{sample}
 
 \end{document}
